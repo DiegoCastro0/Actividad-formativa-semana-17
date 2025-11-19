@@ -1,0 +1,61 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/estudiantes.css' %}">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Estudiantes y Cursos</title>
+
+</head>
+<body>
+    <h2>Lista de Estudiantes</h2>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Edad</th>
+            <th>Curso</th>
+        </tr>
+        {% for estudiante in estudiantes %}
+        <tr>
+            <td>{{ estudiante.nombre }}</td>
+            <td>{{ estudiante.edad }}</td>
+            <td>{{ estudiante.curso.nombre }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No hay estudiantes registrados aún.</td></tr>
+        {% endfor %}
+    </table>
+
+    <h2>Lista de Cursos</h2>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Fecha inicio</th>
+        </tr>
+        {% for curso in cursos %}
+        <tr>
+            <td>{{ curso.nombre }}</td>
+            <td>{{ curso.descripcion }}</td>
+            <td>{{ curso.fecha_inicio }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No hay cursos registrados aún.</td></tr>
+        {% endfor %}
+    </table>
+
+    <div class="acciones">
+        <a href="{% url 'crearestu' %}"> Nuevo Estudiante</a> |
+        <a href="{% url 'crearcurso' %}"> Nuevo Curso</a>
+    </div>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
